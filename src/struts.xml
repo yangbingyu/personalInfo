@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE struts PUBLIC
+        "-//Apache Software Foundation//DTD Struts Configuration 2.5//EN"
+        "http://struts.apache.org/dtds/struts-2.5.dtd">
+
+<struts>
+	<constant name="struts.multipart.saveDir" value="d:/upload/"/>
+    <package name="assignment" namespace="/" extends="struts-default">
+        <action name="loginAction" class="nuc.sw.action.LoginAction" method="loginMethod">
+            <result name="loginOK">/index.jsp</result>
+            <result name="input">/login.jsp</result>
+        </action>
+        <action name="randomCode" class="nuc.sw.action.CodeAction" >
+        </action>
+        <action name="RegisteAction" class="nuc.sw.action.RegisteAction" method="registeMethod">
+            <result name="registeOK">/login.jsp</result>
+            <result name="error">/registe.jsp</result>
+            <result name="input">/registe.jsp</result>
+        </action>
+        <action name="UserInfoAction" class="nuc.sw.action.UserInfoAction" method="UserInfo">
+            <result name="OK">/personal_info.jsp</result>
+            <result name="fail">/index.jsp</result>
+            <result name="input">/index.jsp</result>
+        </action>
+        <action name="InsertFriendsAction" class="nuc.sw.action.InsertFriendsAction" method="InsertFriend">
+        	<result name="InsertOk">/friends_info.jsp</result>
+        	<result name="fail">/index.jsp</result>
+        	<result name="input">/index.jsp</result>
+        </action>
+        <action name="FriendsInfoAction" class="nuc.sw.action.FriendsInfoAction" method="FriendsInfo">
+        	<result name="OK">/friends_info.jsp</result>
+        	<result name="input">/index.jsp</result>
+        </action>
+        <action name="InsertDateAction" class="nuc.sw.action.InsertDateAction" method="InsertDate">
+        	<result name="InsertOk">/date_info.jsp</result>
+        	<result name="fail">/index.jsp</result>
+        	<result name="input">/index.jsp</result>
+        </action>
+        <action name="DateInfoAction" class="nuc.sw.action.DateInfoAction" method="DateInfo">
+        	<result name="OK">/date_info.jsp</result>
+        	<result name="input">/index.jsp</result>
+        </action>
+        <action class="nuc.sw.action.UploadAction" name="uploadAction" method="Upload">
+            <interceptor-ref name="fileUpload">
+                <param name="allowedExtensions">txt,doc,docx,jpg,pptx,jpeg</param>
+                <param name="maximumSize">10240000</param>
+                <param name="allowedTypes">text/plain,
+                    image/jpeg,application/vnd.openxmlformats-officedocument.wordprocessingml.document,
+                    application/vnd.openxmlformats-officedocument.presentationml.presentation,</param>
+            </interceptor-ref>
+            <interceptor-ref name="defaultStack"/>
+            <param name="path">d:/uploadRealFile/</param>
+            <result name="uploadOk">/files_list.jsp</result>
+            <result name="input">/upload.jsp</result>
+        </action>
+        <action name="FileInfoAction" class="nuc.sw.action.FileInfo" method="FileInfo">
+        	<result name="OK">/files_list.jsp</result>
+        	<result name="input">/index.jsp</result>
+        </action>
+        <action class="nuc.sw.action.DownloadAction" name="downloadAction">
+            <result name="success" type="stream">
+                <param name="contentType">${contentType}</param>
+                <param name="inputName">targetFile</param>
+                <param name="contentDisposition">attachment;filename=${downFileName}</param>
+            </result>
+        </action>
+        <action name="FindByUsername" class="nuc.sw.action.FindByUsernameAction" method="find">
+        	<result name="OK">/update.jsp</result>
+        	<result name="input">/index.jsp</result>
+        </action>
+        <action name="UpdateAction" class="nuc.sw.action.UpdateAction" method="update">
+        	<result name="updateOk">UserInfoAction.action</result>
+        	<result name="input">/index.jsp</result>
+        </action>
+    </package>
+</struts>
